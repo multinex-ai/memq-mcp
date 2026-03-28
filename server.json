@@ -1,0 +1,31 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.multinex/mnemosyne",
+  "title": "Mnemosyne",
+  "description": "Hosted and self-hosted MCP memory substrate for durable recall, replay, reflection, and benchmark-backed continuity. Hosted supports billing OAuth for authenticated users and bearer API keys for static clients.",
+  "version": "2.6.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.multinex.ai/mcp/v1"
+    }
+  ],
+  "_meta": {
+    "publisher": "Multinex",
+    "homepage": "https://multinex.ai/mnemosyne",
+    "proof": "https://multinex.ai/benchmarks/mnemosyne",
+    "reproducibility": "https://github.com/multinex-ai/mnemosyne-bench",
+    "npm": "@multinex/mnemosyne",
+    "docker": "ghcr.io/multinex-ai/mnemosyne:v2.6.0",
+    "pricing": {
+      "hosted": "$29/seat/month",
+      "internal": "Free for authenticated @multinex.ai users",
+      "self_hosted": "Docker-supported"
+    },
+    "auth": {
+      "type": "bearer",
+      "header": "Authorization"
+    },
+    "benchmark_scope": "Artifact-backed deterministic fixture benchmark: Mnemosyne conditions passed 3/3 while stateless and naive-memory controls passed 0/3."
+  }
+}

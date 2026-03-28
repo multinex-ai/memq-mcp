@@ -1,0 +1,27 @@
+{
+  "nodeModulesDir": "auto",
+  "tasks": {
+    "start": "deno run --allow-net --allow-env --allow-read --allow-write mod.ts",
+    "check": "deno check mod.ts",
+    "test": "deno test --allow-env --allow-net --allow-read --allow-write src/quantum_entropy_test.ts src/replay_policy_test.ts src/adapters/falkor_test.ts src/temporal_graph_test.ts src/mcp_contract_test.ts src/hybrid_retrieval_service_test.ts src/planning_client_test.ts src/slice_service_test.ts src/graph_insights_test.ts",
+    "replay": "deno run --allow-net --allow-env --allow-read --allow-write scripts/replay_soul_journal.ts",
+    "graph:insights": "deno run --allow-net --allow-env --allow-read scripts/graph_insights.ts",
+    "graph:telegram": "deno run --allow-net --allow-env --allow-read scripts/graph_insights.ts --telegram"
+  },
+  "fmt": {
+    "lineWidth": 120,
+    "semiColons": true,
+    "singleQuote": false
+  },
+  "imports": {
+    "oak": "https://deno.land/x/oak@v12.6.1/mod.ts",
+    "zod": "npm:zod@3.24.1",
+    "redis": "npm:redis@4.7.0",
+    "@opentelemetry/api": "npm:@opentelemetry/api@1.9.0",
+    "@opentelemetry/exporter-metrics-otlp-http": "npm:@opentelemetry/exporter-metrics-otlp-http@0.48.0",
+    "@opentelemetry/exporter-trace-otlp-http": "npm:@opentelemetry/exporter-trace-otlp-http@0.48.0",
+    "@opentelemetry/resources": "npm:@opentelemetry/resources@1.21.0",
+    "@opentelemetry/sdk-metrics": "npm:@opentelemetry/sdk-metrics@1.21.0",
+    "@opentelemetry/sdk-trace-base": "npm:@opentelemetry/sdk-trace-base@1.21.0"
+  }
+}

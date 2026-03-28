@@ -1,0 +1,73 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: mnemosyne-gateway
+  annotations:
+    run.googleapis.com/ingress: all
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/maxScale: "20"
+        run.googleapis.com/execution-environment: gen2
+        run.googleapis.com/vpc-access-connector: projects/gen-lang-client-0666724094/locations/us-central1/connectors/multinex-serverless
+        run.googleapis.com/vpc-access-egress: private-ranges-only
+    spec:
+      containerConcurrency: 100
+      timeoutSeconds: 900
+      serviceAccountName: multinex-runtime@gen-lang-client-0666724094.iam.gserviceaccount.com
+      containers:
+        - image: us-central1-docker.pkg.dev/gen-lang-client-0666724094/cloud-run-source-deploy/mnemosyne-gateway:latest
+          ports:
+            - name: http1
+              containerPort: 8000
+          resources:
+            limits:
+              cpu: "2"
+              memory: 4Gi
+          env:
+            - name: PORT
+              value: "8000"
+            - name: RELEASE_CHANNEL
+              value: hosted-prod
+            - name: REQUIRE_AUTH
+              value: "true"
+            - name: BILLING_MANAGER_URL
+              value: https://billing.multinex.ai
+            - name: OAUTH_AUTHORIZATION_SERVER_URL
+              value: https://billing.multinex.ai
+            - name: OTEL_SERVICE_NAME
+              value: mnemosyne-gateway
+            - name: OTEL_SERVICE_NAMESPACE
+              value: multinex
+            - name: OTEL_DEPLOYMENT_ENVIRONMENT
+              value: production
+            - name: CLOUDGAZE_OTLP_BASE_URL
+              value: https://otel.multinex.ai
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: http/protobuf
+            - name: CLOUD_PROVIDER
+              value: gcp
+            - name: CLOUD_PLATFORM
+              value: gcp_cloud_run
+            - name: CLOUD_REGION
+              value: us-central1
+            - name: MULTINEX_CHANNEL
+              value: hosted-prod
+            - name: QDRANT_URL
+              value: http://qdrant.internal:6333
+            - name: FALKOR_REDIS_URL
+              value: redis://falkordb.internal:6379
+            - name: SOUL_JOURNAL_PATH
+              value: /var/lib/memory-stack/soul_journal.jsonl
+            - name: BILLING_MANAGER_SERVICE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: mnemosyne-billing-manager-service-token
+                  key: latest
+            - name: INTERNAL_BUS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: mnemosyne-internal-bus-token
+                  key: latest

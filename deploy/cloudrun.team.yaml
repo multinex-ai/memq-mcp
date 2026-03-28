@@ -1,0 +1,57 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: mnemosyne-team
+  annotations:
+    run.googleapis.com/ingress: all
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "3"
+        run.googleapis.com/execution-environment: gen2
+        run.googleapis.com/startup-cpu-boost: "true"
+    spec:
+      containerConcurrency: 50
+      timeoutSeconds: 300
+      containers:
+        - image: IMAGE_PLACEHOLDER
+          ports:
+            - name: http1
+              containerPort: 8000
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+          env:
+            - name: PORT
+              value: "8000"
+            - name: RELEASE_CHANNEL
+              value: self-hosted-prod
+            - name: REQUIRE_AUTH
+              value: "false"
+            - name: LOG_LEVEL
+              value: info
+            - name: VECTOR_DIM
+              value: "256"
+            - name: TOP_K_DEFAULT
+              value: "5"
+            - name: AUTO_REFLECT_EVERY
+              value: "25"
+            - name: SIMILARITY_DEDUP_THRESHOLD
+              value: "0.985"
+            - name: MAX_SSE_CONNECTIONS
+              value: "100"
+            - name: QUANTUM_ENTROPY_MODE
+              value: "off"
+            - name: QDRANT_URL
+              value: QDRANT_URL_PLACEHOLDER
+            - name: QDRANT_COLLECTION
+              value: team_memories
+            - name: FALKOR_REDIS_URL
+              value: FALKOR_URL_PLACEHOLDER
+            - name: FALKOR_GRAPH
+              value: team_mnemosyne
+            - name: SOUL_JOURNAL_PATH
+              value: /tmp/soul_journal.jsonl

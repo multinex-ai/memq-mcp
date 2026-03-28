@@ -1,0 +1,6 @@
+.env
+node_modules/
+dist/
+soul_journal.jsonl
+slice_journal.jsonl
+*.log
