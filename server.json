@@ -1,8 +1,8 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "com.multinex/mnemosyne",
-  "title": "Mnemosyne",
-  "description": "Hosted and self-hosted MCP memory substrate for durable recall, replay, reflection, and benchmark-backed continuity. Hosted supports billing OAuth for authenticated users and bearer API keys for static clients.",
+  "name": "com.multinex/memq",
+  "title": "Multinex MemQ",
+  "description": "Sovereign persistent memory for AI agents. Durable recall, replay, reflection, and benchmark-backed continuity. Supports billing OAuth for authenticated users and bearer API keys for static clients.",
   "version": "2.6.0",
   "remotes": [
     {
@@ -11,16 +11,16 @@
     }
   ],
   "_meta": {
-    "publisher": "Multinex",
-    "homepage": "https://multinex.ai/mnemosyne",
+    "publisher": "Multinex AI",
+    "homepage": "https://multinex.ai/memq",
     "proof": "https://multinex.ai/benchmarks/mnemosyne",
     "reproducibility": "https://github.com/multinex-ai/mnemosyne-bench",
     "npm": "@multinex/mnemosyne",
     "docker": "ghcr.io/multinex-ai/mnemosyne:v2.6.0",
     "pricing": {
-      "hosted": "$29/seat/month",
+      "hosted": "$29/seat/month (7-day free trial available)",
       "internal": "Free for authenticated @multinex.ai users",
-      "self_hosted": "Docker-supported"
+      "self_hosted": "Open Source"
     },
     "auth": {
       "type": "bearer",
